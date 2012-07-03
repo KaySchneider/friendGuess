@@ -16,7 +16,8 @@ main.prototype.receiveMessage = function (data) {
   
     switch(data.message) {
         case "login":
-            this.startApp();
+             this.insertBootScreen();
+             this.startApp();
             break;
         case "noUser":
             this.authUser();
