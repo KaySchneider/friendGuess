@@ -1,0 +1,68 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="http://code.jquery.com/jquery-1.7.2.min.js" ></script>
+        <script src="js/arrayExtended.js"></script>
+        
+        <script src="js/baseMethod.js"></script>
+        <script src="js/baseMessage.js"></script>
+        
+         <script src="js/loadStack.js"></script>
+        <script src="js/facebookWorker.js"></script>
+        <script src="js/friendData.js" ></script>
+        <script src="js/facebookWorker.js"></script>
+        <script src="js/gameController.js"></script>
+        <script src="js/main.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+    </head>
+    <body>
+        <div></div>
+        <div id="fb-root"></div>
+        <script>
+            var appId = '405957859447793';
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId      : appId, // App ID
+                    status     : true, // check login status
+                    cookie     : true, // enable cookies to allow the server to access the session
+                    xfbml      : true  // parse XFBML
+                });
+                fbApiInit = true; //init flag
+                // Additional initialization code here
+            };
+
+            // Load the SDK Asynchronously
+            (function(d){
+                var js, id = 'facebook-jssdk', ref = d.getElementsByTagName ('script')[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement('script'); js.id = id; js.async = true;
+                js.src = "//connect.facebook.net/en_US/all.js";
+                ref.parentNode.insertBefore(js, ref);
+            }(document));
+        </script>
+        
+        <div id="gcontent" >
+            <div id="pcont" >
+                
+            </div>
+            <div id="btnCont" >
+                
+            </div>
+        </div>
+       
+            <div id="doAuth" style="display: none;">
+                <button > please authorize the app </button>
+            </div>
+        
+        <div id="waitContainer" class="waiter" style="display: none">
+            <!-- here  is the placeholder for some text message arround there -->
+        </div>
+      
+    </body>
+</html>
