@@ -16,6 +16,8 @@ main.prototype.receiveMessage = function (data) {
   
     switch(data.message) {
         case "login":
+            this.insertBootScreen();
+       
             this.startApp();
             break;
         case "noUser":
@@ -61,10 +63,10 @@ main.prototype.authUser = function ( ) {
 
 main.prototype.user = function ( ) {
   
-/**
+    /**
      * make nothing
      */
-};
+    };
 
 /**
  * the user aborted the permission request,

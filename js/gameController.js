@@ -13,9 +13,11 @@ gameController = function () {
     this.points = 0; //user stati
     this.correctAnswers = 0; //user stati
     this.falseAnswers = 0; //user stati
-    
+    this.falseDel = 50;
     this.correctPoint = 100; //the points wich an user becomes if the answer is correct
     this.maxDuration = 10; //the maximum duration of the simple game ( 10 friends to know )
+    
+    this.timeRun = true; //set to false, that the game will be stopped
     
     this.nowSearchId = null;
     this.maxFriends = null;
@@ -26,6 +28,8 @@ gameController = function () {
     this.loadedGames = new Array();
     
     this.gameState = false;
+    this.timeEngine = new timeStopper();
+    this.timeEngine.registListener(this);
 };
 
 gameController.prototype = new baseMessage();
@@ -35,6 +39,9 @@ gameController.prototype.receiveMessage = function (data) {
        case 'friendsArrived' :
            this.startGame(data.data);
        break;
+       case 'timeOut' :
+           this.stopGame();
+       break
        
    }  
 };
@@ -155,13 +162,13 @@ gameController.prototype.buildGameObject = function (answerSet, correctAnswer) {
                 return this.image;
             },
             
-            'actionCheck': function (cid, callBackSuccess ) {
+            'actionCheck': function (cid, callBackSuccess, callBackFalse ) {
              
                 if(cid === this.correctSolution.id) {
                     //callback success if the user hits the correct solution of this object
                     callBackSuccess();
                 } else {
-                    return false;
+                    callBackFalse();
                 }
             }
             
@@ -183,9 +190,20 @@ gameController.prototype.getAnswerCollection = function (searchFriend) {
     return [friend1, friend2, friend3, searchFriend];
 };
 
+/**
+ * the user has guess correct
+ */
 gameController.prototype.nextOne = function () {
+  this.addPoints();
   this.gameState = false;
   this.run();
+};
+
+/**
+ * the user has guess false
+ */
+gameController.prototype.thisOne = function () {
+    this.negatePoints();
 };
 
 /**
@@ -193,8 +211,15 @@ gameController.prototype.nextOne = function () {
  * button
  */
 gameController.prototype.checkAnswerButtonClick = function ( cId) {
+  if(this.checkGameRun() === false) {
+      return 0;
+  }
     (function (that) {
-        that.activeGame.actionCheck(cId, function () {that.nextOne();} );
+        that.activeGame.actionCheck(cId, function () {
+                    that.nextOne();
+                }, function () {
+                    that.thisOne();
+                } );
         })(this);
 };
 
@@ -214,9 +239,44 @@ gameController.prototype.selectRandomFriend = function () {
  * callback for the images loaded to start the game
  */
 gameController.prototype.run = function (gIndexId) {
-   if(this.gameState === false) {
+   if(this.gameState === false && this.timeRun == true) {
+       console.log(this.timeEngine);
+       this.timeEngine.start();
        this.runOneGame();
    }
+};
+
+gameController.prototype.stopGame = function () {
+  this.timeRun = false;  
+};
+
+gameController.prototype.checkGameRun = function () {
+  if(this.timeRun == false) {
+      return false;
+  } else {
+      return true;
+  }
+};
+
+/**
+ * adding the points to the 
+ * user
+ */
+gameController.prototype.addPoints = function ( ) {
+
+    this.points += this.correctPoint;
+    this.correctAnswers++;
+    this.updateUserStats();
+};
+
+/**
+ * case fasle answer, negate the points
+ */
+gameController.prototype.negatePoints = function () {
+  this.points -= this.falseDel;
+  this.falseAnswers++;
+  this.updateUserStats();
+  
 };
 /**
  * maybe this should happen already in the mainObj
@@ -274,4 +334,13 @@ gameController.prototype.buildButton = function (element) {
     buttonWrapper.appendChild(textWrapper);
     
     return buttonWrapper;
+};
+
+/**
+ * updates the stats in the view
+ */
+gameController.prototype.updateUserStats = function () {
+    $('#vcorrcect').html(this.correctAnswers);
+    $('#vwrong').html(this.falseAnswers);
+    $('#vpoints').html(this.points);
 };
