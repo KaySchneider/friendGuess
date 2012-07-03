@@ -23,7 +23,6 @@ timeStopper.prototype.start = function () {
         this.isRunning = true;
         (function (that) {
            that.intervalId =  setInterval( function () {
-                console.log(that, "hu");
                 that.checkExec();
             }, 500);
         } )(this);

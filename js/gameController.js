@@ -111,7 +111,7 @@ gameController.prototype.startGame = function (data) {
         var game = this.buildGameSet();
             (function (that) {
                 var litem = that.correctAnswer;
-                stackLoad.addItem('http://graph.facebook.com/' + that.correctSolution.id + '/picture' ,function (picture) {
+                stackLoad.addItem('http://graph.facebook.com/' + that.correctSolution.id + '/picture?type=large' ,function (picture) {
                     that.setPicture(picture);
                 }, '');
             })(game);
