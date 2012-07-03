@@ -13,6 +13,9 @@ and open the template in the editor.
         <script src="js/baseMethod.js"></script>
         <script src="js/baseMessage.js"></script>
         
+
+        <script src="js/timeStopper.js"></script>
+
          <script src="js/loadStack.js"></script>
         <script src="js/facebookWorker.js"></script>
         <script src="js/friendData.js" ></script>
@@ -25,7 +28,9 @@ and open the template in the editor.
         <div></div>
         <div id="fb-root"></div>
         <script>
+
             var appId = '128920757247177';
+
             window.fbAsyncInit = function() {
                 FB.init({
                     appId      : appId, // App ID
@@ -48,6 +53,15 @@ and open the template in the editor.
         </script>
         
         <div id="gcontent" >
+
+            <div id="stats">
+                <p>correct: <span id="vcorrcect"></span></p>
+                <p>wrong:<span id="vwrong"></span></p>
+                <p>points:<span id="vpoints"></span></p>
+                <p>time left:<span id="vtime"></span> seconds</p>
+                    
+            </div>
+
             <div id="pcont" >
                 
             </div>
