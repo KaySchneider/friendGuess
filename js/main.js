@@ -13,12 +13,11 @@ main.prototype = new baseMethod(['mainControll']);
 
 
 main.prototype.receiveMessage = function (data) {
-  
     switch(data.message) {
         case "login":
 
+            this.removeAuthButton();
             this.insertBootScreen();
-       
             this.startApp();
 
             break;
@@ -27,6 +26,9 @@ main.prototype.receiveMessage = function (data) {
             break;
         case 'accessToken' :
             this.setAccessToken();
+            break;
+        case 'gameReady' :
+            this.removeBootScreen();
             break;
     }
 };
@@ -53,8 +55,8 @@ main.prototype.init = function () {
  * this method will be called if the user is set!
  */
 main.prototype.startApp = function () {
-
     this.game = new gameController();
+    this.game.registListener(this);
     this.game.init();
 };
 
@@ -131,7 +133,14 @@ main.prototype.removeAuthButton = function () {
  * container
  */
 main.prototype.insertBootScreen = function () {
-    $('#waitContainer').css('display','');
+    $('#waitContainer').css('display','block');
+};
+
+/**
+ * remove the game container
+ */
+main.prototype.removeBootScreen = function () {
+    $('#waitContainer').fadeOut(800);
 };
 
 var mainControll;

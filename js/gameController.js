@@ -30,27 +30,30 @@ gameController = function () {
     this.gameState = false;
     this.timeEngine = new timeStopper();
     this.timeEngine.registListener(this);
+    this.firstLoad = false;
 };
 
 gameController.prototype = new baseMessage();
 
 gameController.prototype.receiveMessage = function (data) {
-   switch(data.message) {
-       case 'friendsArrived' :
-           this.startGame(data.data);
-       break;
-       case 'timeOut' :
-           this.stopGame();
-       break
+    switch(data.message) {
+        case 'friendsArrived' :
+            this.startGame(data.data);
+            break;
+        case 'timeOut' :
+            this.stopGame();
+            break
        
-   }  
+    }  
 };
 
 
 
 
 gameController.prototype.init = function () {
-  this.collectFriends();
+    this.firstLoad = true;//set this to true;
+    $('#gcontent').css('display', 'block');
+    this.collectFriends();
 };
 
 gameController.prototype.collectFriends = function () {
@@ -69,7 +72,7 @@ gameController.prototype.collectFriends = function () {
  */
 gameController.prototype.buildAllGame = function () {
     
-};
+    };
 
 
 /**
@@ -80,11 +83,13 @@ gameController.prototype.runOneGame = function () {
     var game = this.allGames.shift();//take one item 
    
     if(typeof(game) === "undefined" ) {
-      this.gameState = false;
-      alert("Next round");
-      //start next round
-      this.startGame({'friendsCount':this.maxFriends});
-      return 0;
+        this.gameState = false;
+        alert("Next round");
+        //start next round
+        this.startGame({
+            'friendsCount':this.maxFriends
+            });
+        return 0;
     } 
     this.activeGame = game;
     //get the view
@@ -107,15 +112,15 @@ gameController.prototype.startGame = function (data) {
     //start building the gameSet
  
     
-    for(var i = 0; i <= 9; i++) {
+    for(var i = 0; i <= 59; i++) {
         var game = this.buildGameSet();
-            (function (that) {
-                var litem = that.correctAnswer;
-                stackLoad.addItem('http://graph.facebook.com/' + that.correctSolution.id + '/picture?type=large' ,function (picture) {
-                    that.setPicture(picture);
-                }, '');
-            })(game);
-            this.allGames.push(game);
+        (function (that) {
+            var litem = that.correctAnswer;
+            stackLoad.addItem('http://graph.facebook.com/' + that.correctSolution.id + '/picture?type=large' ,function (picture) {
+                that.setPicture(picture);
+            }, '');
+        })(game);
+        this.allGames.push(game);
     }
     
     
@@ -128,13 +133,13 @@ gameController.prototype.startGame = function (data) {
  */
 gameController.prototype.buildGameSet = function () {
   
-   var seekFriend = this.selectRandomFriend();
-   //build the Answer Collection
-   var allAnswers = this.getAnswerCollection(seekFriend);
-   allAnswers =  arrayEx.shuffle(allAnswers);
-   var set = this.buildGameObject( allAnswers, seekFriend);
+    var seekFriend = this.selectRandomFriend();
+    //build the Answer Collection
+    var allAnswers = this.getAnswerCollection(seekFriend);
+    allAnswers =  arrayEx.shuffle(allAnswers);
+    var set = this.buildGameObject( allAnswers, seekFriend);
    
-   return set;
+    return set;
   
 };
 
@@ -146,33 +151,33 @@ gameController.prototype.buildGameObject = function (answerSet, correctAnswer) {
     
    
     return {
-            'allAnswers': answerSet, 
-            'correctSolution': correctAnswer, 
-            'setPicture': function (pictureData) {
+        'allAnswers': answerSet, 
+        'correctSolution': correctAnswer, 
+        'setPicture': function (pictureData) {
            
-                        this.image = pictureData;
+            this.image = pictureData;
                     
-                        //picture is loaded starts the game here
-                        this.gameObj.run();
+            //picture is loaded starts the game here
+            this.gameObj.run();
                         
-            } ,
-            'gameObj': this,
-            'image':null,
-            'getImage': function () {
-                return this.image;
-            },
+        } ,
+        'gameObj': this,
+        'image':null,
+        'getImage': function () {
+            return this.image;
+        },
             
-            'actionCheck': function (cid, callBackSuccess, callBackFalse ) {
+        'actionCheck': function (cid, callBackSuccess, callBackFalse ) {
              
-                if(cid === this.correctSolution.id) {
-                    //callback success if the user hits the correct solution of this object
-                    callBackSuccess();
-                } else {
-                    callBackFalse();
-                }
+            if(cid === this.correctSolution.id) {
+                //callback success if the user hits the correct solution of this object
+                callBackSuccess();
+            } else {
+                callBackFalse();
             }
+        }
             
-           };
+    };
 };
 
 
@@ -182,7 +187,7 @@ gameController.prototype.buildGameObject = function (answerSet, correctAnswer) {
  * searched here with rndfunction 
  */
 gameController.prototype.getAnswerCollection = function (searchFriend) {
-     //get 3 new Friends
+    //get 3 new Friends
     var friend1 = this.selectRandomFriend();
     var friend2 = this.selectRandomFriend();
     var friend3 = this.selectRandomFriend();
@@ -194,9 +199,9 @@ gameController.prototype.getAnswerCollection = function (searchFriend) {
  * the user has guess correct
  */
 gameController.prototype.nextOne = function () {
-  this.addPoints();
-  this.gameState = false;
-  this.run();
+    this.addPoints();
+    this.gameState = false;
+    this.run();
 };
 
 /**
@@ -211,16 +216,16 @@ gameController.prototype.thisOne = function () {
  * button
  */
 gameController.prototype.checkAnswerButtonClick = function ( cId) {
-  if(this.checkGameRun() === false) {
-      return 0;
-  }
+    if(this.checkGameRun() === false) {
+        return 0;
+    }
     (function (that) {
         that.activeGame.actionCheck(cId, function () {
-                    that.nextOne();
-                }, function () {
-                    that.thisOne();
-                } );
-        })(this);
+            that.nextOne();
+        }, function () {
+            that.thisOne();
+        } );
+    })(this);
 };
 
 gameController.prototype.selectRandomFriend = function () {
@@ -239,23 +244,29 @@ gameController.prototype.selectRandomFriend = function () {
  * callback for the images loaded to start the game
  */
 gameController.prototype.run = function (gIndexId) {
-   if(this.gameState === false && this.timeRun == true) {
-       console.log(this.timeEngine);
-       this.timeEngine.start();
-       this.runOneGame();
-   }
+    if(this.gameState === false && this.timeRun == true) {
+        if(this.firstLoad === true) {
+            var dataObj = this.buildMessageData('gameReady', '');
+            this.sendMessage(dataObj);
+            this.firstLoad = false;
+        }
+        console.log(this.timeEngine);
+        this.timeEngine.start();
+        this.runOneGame();
+    }
 };
 
 gameController.prototype.stopGame = function () {
-  this.timeRun = false;  
+    this.shareResult();
+    this.timeRun = false;  
 };
 
 gameController.prototype.checkGameRun = function () {
-  if(this.timeRun == false) {
-      return false;
-  } else {
-      return true;
-  }
+    if(this.timeRun == false) {
+        return false;
+    } else {
+        return true;
+    }
 };
 
 /**
@@ -273,9 +284,9 @@ gameController.prototype.addPoints = function ( ) {
  * case fasle answer, negate the points
  */
 gameController.prototype.negatePoints = function () {
-  this.points -= this.falseDel;
-  this.falseAnswers++;
-  this.updateUserStats();
+    this.points -= this.falseDel;
+    this.falseAnswers++;
+    this.updateUserStats();
   
 };
 /**
@@ -287,7 +298,24 @@ gameController.prototype.negatePoints = function () {
 /**
  * view of gameController
  */
+gameController.prototype.shareResult = function ( ) {
+   // calling the API ...
+  // console.log(this.facebook.getUserName() );
+        var obj = {
+          method: 'feed',
+          link: 'http://localhost/git/nodeFriendGuess/webapp/',
+          picture: 'http://fbrell.com/f8.jpg',
+          name: 'friendGuess!',
+          caption: 'a 60second game',
+          description: 'hat in 60 sekunden ' + this.correctAnswers + " Freunde erkannt und dabei " + this.points + " Punkte erspielt! Kannst Du mehr Freunde erkennen ?"
+        };
 
+        function callback(response) {
+          console.log(response);
+        }
+
+        FB.ui(obj, callback); 
+};
 /**
  * 
  * builds an html Element wich contains all

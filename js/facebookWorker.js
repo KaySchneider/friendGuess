@@ -378,7 +378,11 @@ facebookHelper.prototype.getUserName = function () {
     if(this.userData == false) {
         return false;
     }
+    try {
     return this.userData.first_name;
+    } catch(e) {
+        console.log(e);
+    }
 }
 
 /**

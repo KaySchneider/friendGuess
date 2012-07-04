@@ -52,7 +52,8 @@ and open the template in the editor.
             }(document));
         </script>
         
-        <div id="gcontent" >
+
+        <div id="gcontent" style="display: none;">
 
             <div id="stats">
                 <p>correct: <span id="vcorrcect"></span></p>
@@ -71,11 +72,17 @@ and open the template in the editor.
         </div>
        
             <div id="doAuth" style="display: none;">
-                <button > please authorize the app </button>
+                <div class="intro">
+                    <p>FriendGuess! Wieviel deiner Facebook Freunde erkennst Du in 60 sek. anhand deren Bilder???
+                       Finde es heraus mit FriendGuess! <br/>
+                       Und teile das Ergebniss mit deinen Freunden!
+                    </p>
+                </div>
+                <button > start friendGuess! </button>
             </div>
         
         <div id="waitContainer" class="waiter" style="display: none">
-            <!-- here  is the placeholder for some text message arround there -->
+            <p>please wait .. .. ..</p>
         </div>
         <script type="text/javascript">
 
