@@ -8,23 +8,103 @@ and open the template in the editor.
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="http://code.jquery.com/jquery-1.7.2.min.js" ></script>
+        <script src="js/bootstrap.min.js"></script>
         <script src="js/arrayExtended.js"></script>
-        
+
         <script src="js/baseMethod.js"></script>
         <script src="js/baseMessage.js"></script>
-        
+
         <script src="js/timeStopper.js"></script>
-         <script src="js/loadStack.js"></script>
+        <script src="js/loadStack.js"></script>
         <script src="js/facebookWorker.js"></script>
         <script src="js/friendData.js" ></script>
         <script src="js/facebookWorker.js"></script>
         <script src="js/gameController.js"></script>
         <script src="js/main.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/main.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/addOn.css" />
+        <style>
+            body {
+                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
+
     </head>
     <body>
-        <div></div>
-        <div id="fb-root"></div>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="#"><img src="img/logo128.png" height="40" > friendGuess</a>
+                    <div class="nav-collapse">
+                        <ul id="stats" class="nav" >
+                            <li><a>correct: <span id="vcorrcect">0</span></a></li>
+                            <li><a>wrong:<span id="vwrong">0</span></a></li>
+                            <li><a>points:<span id="vpoints">0</span></a></li>
+                            <li><a>time left:<span id="vtime">0</span> seconds</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+
+            <h1>So gehts:</h1>
+            <p>links siehst du ein Bild und rechts sind Namen von deinen Freunden aufeglistet.</p>
+            <p>Jeder klick auf einen falschen Namen kostet dich 50 Punkte. Wenn du richtig liegst bekommst du 100 Punkte gutgeschrieben.</p>
+
+        </div>
+        <div class="container ">
+            <div id="fb-root"></div>
+
+
+            <div id="gcontent" class="row hero-unit" style="display: none;">
+                
+                <div class="span4">
+                    <h3>Wer ist das ?</h3>
+                    <div id="pcont" class="" >
+
+                    </div>
+                </div>
+               
+
+                <div class="span3">
+                    <h3>und ob du wirklich richtig stehst...</h3>
+                    <div id="btnCont" class="">
+
+                    </div>
+               </div>
+               
+
+
+            </div>
+
+            <div id="doAuth" class="row" style="display: none;">
+                <div class="intro row12 hero-unit" >
+                    <p>FriendGuess! Wieviel deiner Facebook Freunde erkennst Du in 60 sek. anhand deren Bilder???
+                        Finde es heraus mit FriendGuess! <br/>
+                        Und teile das Ergebniss mit deinen Freunden!
+                    </p>
+
+                    <button class="btn btn-large btn-primary"> start friendGuess! </button>
+                </div>
+
+            </div>
+
+            <div class="modalbg"  >
+                
+            </div>
+            <div id="waitContainer" class="waiter" style="display: none">
+                <p>please wait .. .. ..</p>
+            </div>
+        </div>
+
         <script>
             var appId = '405957859447793';
             window.fbAsyncInit = function() {
@@ -47,36 +127,5 @@ and open the template in the editor.
                 ref.parentNode.insertBefore(js, ref);
             }(document));
         </script>
-        
-        <div id="gcontent" style="display: none;">
-            <div id="stats">
-                <p>correct: <span id="vcorrcect"></span></p>
-                <p>wrong:<span id="vwrong"></span></p>
-                <p>points:<span id="vpoints"></span></p>
-                <p>time left:<span id="vtime"></span> seconds</p>
-                    
-            </div>
-            <div id="pcont" >
-                
-            </div>
-            <div id="btnCont" >
-                
-            </div>
-        </div>
-       
-            <div id="doAuth" style="display: none;">
-                <div class="intro">
-                    <p>FriendGuess! Wieviel deiner Facebook Freunde erkennst Du in 60 sek. anhand deren Bilder???
-                       Finde es heraus mit FriendGuess! <br/>
-                       Und teile das Ergebniss mit deinen Freunden!
-                    </p>
-                </div>
-                <button > start friendGuess! </button>
-            </div>
-        
-        <div id="waitContainer" class="waiter" style="display: none">
-            <p>please wait .. .. ..</p>
-        </div>
-      
     </body>
 </html>
