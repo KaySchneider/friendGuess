@@ -3,32 +3,37 @@ To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
     <head>
-        <title></title>
+        <meta property="og:title" content="friendGuess" /> 
+        <meta property="og:description" content="Kennst du deine facebook Freunde ?? " /> 
+        <meta property="og:image" content="maps_app/logo128.png" /> 
+        <meta name="medium" content="game" />
+        <title>friendGuess</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="http://code.jquery.com/jquery-1.7.2.min.js" ></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/arrayExtended.js"></script>
+            <script src="http://code.jquery.com/jquery-1.7.2.min.js" ></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/arrayExtended.js"></script>
 
-        <script src="js/baseMethod.js"></script>
-        <script src="js/baseMessage.js"></script>
+            <script src="js/baseMethod.js"></script>
+            <script src="js/baseMessage.js"></script>
 
-        <script src="js/timeStopper.js"></script>
-        <script src="js/loadStack.js"></script>
-        <script src="js/facebookWorker.js"></script>
-        <script src="js/friendData.js" ></script>
-        <script src="js/facebookWorker.js"></script>
-        <script src="js/gameController.js"></script>
-        <script src="js/main.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css" />
-        <link rel="stylesheet" type="text/css" href="css/addOn.css" />
-        <style>
-            body {
-                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-            }
-        </style>
+            <script src="js/timeStopper.js"></script>
+            <script src="js/loadStack.js"></script>
+            <script src="js/facebookWorker.js"></script>
+            <script src="js/friendData.js" ></script>
+            <script src="js/facebookWorker.js"></script>
+            <script src="js/gameController.js"></script>
+            <script src="js/main.js"></script>
+            <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+            <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css" />
+            <link rel="stylesheet" type="text/css" href="css/addOn.css" />
+            <style>
+                body {
+                    padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+                }
+            </style>
 
     </head>
     <body>
@@ -50,11 +55,11 @@ and open the template in the editor.
 
                         </ul>
                     </div>
+                    <a><div class="fb-like" style="margin-top:15px;float:right" data-href="http://kayschneider.github.com/friendGuess/" data-send="true" data-width="200" data-show-faces="false" data-colorscheme="dark" data-font="arial"></div></a>
                 </div>
             </div>
         </div>
         <div class="container">
-
             <h1>So gehts:</h1>
             <p>links siehst du ein Bild und rechts sind Namen von deinen Freunden aufeglistet.</p>
             <p>Jeder klick auf einen falschen Namen kostet dich 50 Punkte. Wenn du richtig liegst bekommst du 100 Punkte gutgeschrieben.</p>
@@ -65,22 +70,22 @@ and open the template in the editor.
 
 
             <div id="gcontent" class="row hero-unit" style="display: none;">
-                
+
                 <div class="span4">
                     <h3>Wer ist das ?</h3>
                     <div id="pcont" class="" >
 
                     </div>
                 </div>
-               
+
 
                 <div class="span3">
                     <h3>und ob du wirklich richtig stehst...</h3>
                     <div id="btnCont" class="">
 
                     </div>
-               </div>
-               
+                </div>
+
 
 
             </div>
@@ -98,7 +103,7 @@ and open the template in the editor.
             </div>
 
             <div class="modalbg"  >
-                
+
             </div>
             <div id="waitContainer" class="waiter" style="display: none">
                 <p>please wait .. .. ..</p>
@@ -126,6 +131,16 @@ and open the template in the editor.
                 js.src = "//connect.facebook.net/en_US/all.js";
                 ref.parentNode.insertBefore(js, ref);
             }(document));
+            
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-33116077-1']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
         </script>
     </body>
 </html>
