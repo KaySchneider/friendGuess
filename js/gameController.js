@@ -347,7 +347,8 @@ gameController.prototype.bindAnswerButtonAction = function (element , checkMetho
  * div tag with one span tag inside
  */
 gameController.prototype.buildButton = function (element) {
-    var buttonWrapper = document.createElement('div');
+    var buttonWrapper = document.createElement('button');
+    buttonWrapper.setAttribute('class', 'btn btn-danger');
     var textWrapper = document.createElement('span');
     var text = document.createTextNode(element.name);
     buttonWrapper.setAttribute("fid", element.id);

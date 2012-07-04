@@ -134,6 +134,7 @@ main.prototype.removeAuthButton = function () {
  */
 main.prototype.insertBootScreen = function () {
     $('#waitContainer').css('display','block');
+    $('.modalbg').css('display', 'block');
 };
 
 /**
@@ -141,6 +142,7 @@ main.prototype.insertBootScreen = function () {
  */
 main.prototype.removeBootScreen = function () {
     $('#waitContainer').fadeOut(800);
+    $('.modalbg').fadeOut(800);
 };
 
 var mainControll;
