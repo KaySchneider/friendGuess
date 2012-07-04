@@ -1,0 +1,19 @@
+{
+  "name": "FriendGuess",
+  "description": "play the facebook friendGuess game",
+  "version": "1",
+  "app": {
+    "urls": [
+      "http://kayschneider.github.com/friendGuess/"
+    ],
+    "launch": {
+      "web_url": "http://kayschneider.github.com/friendGuess/"
+    }
+  },
+  "icons": {
+    "128": "icon/icon_128.jpg"
+  },
+  "permissions": [
+   
+  ]
+}
